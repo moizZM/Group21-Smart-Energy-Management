@@ -1,0 +1,38 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+=================================================================
+
+This dataset is licensed under the Creative Commons Attribution 4.0 International
+License.
+
+You are free to:
+
+- Share: copy and redistribute the material in any medium or format.
+- Adapt: remix, transform, and build upon the material for any purpose, including
+  commercial purposes.
+
+Under the following terms:
+
+- Attribution: You must give appropriate credit, provide a link to the license, and
+  indicate if changes were made. You may do so in any reasonable manner, but not in
+  any way that suggests the authors or dataset creators endorse you or your use.
+
+Full license text:
+https://creativecommons.org/licenses/by/4.0/
+
+SPDX-License-Identifier: CC-BY-4.0
+
+Recommended attribution
+-----------------------
+If you use this dataset, please cite the dataset DOI assigned by Mendeley Data and
+acknowledge the dataset creators.
+
+Suggested citation format:
+
+[Author(s)]. Residential HEMS Dataset Based on Home Assistant Simulation and Online
+Exogenous Data. Mendeley Data, Version 1. DOI: [add DOI after publication].
+
+Notes
+-----
+This license applies to the released dataset and accompanying documentation, unless
+otherwise stated. Third-party online data sources used in constructing the dataset
+remain subject to their original providers' terms and conditions.
