@@ -1,9 +1,9 @@
-import pandas as pd                    # what is this and why we have it here where is it helping us in the code.
-import streamlit as st                 # what is this and why we have it here where is it helping us in the code.
+import pandas as pd                  
+import streamlit as st                 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-st.set_page_config(page_title="Energy Dashboard", layout="wide")   # explain this. and all the lines after this.
+st.set_page_config(page_title="Energy Dashboard", layout="wide")   
 
 st.title("Smart Energy Dashboard")
 st.write("Group 21")
