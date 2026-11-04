@@ -72,9 +72,8 @@ convention, and setters validate changes. Getters return copies of stored readin
 The dashboard keeps the original day selection and readings table, replaces the
 static plot with interactive charts, and adds appliance breakdown and CSV download.
 
-### Run on Windows (PowerShell)
+### How to run
 
-Open a terminal inside this project folder. Python 3.12 is the tested version.
 
 ```powershell
 py -m venv .venv
@@ -87,22 +86,7 @@ Keep the terminal running while using the dashboard. Stop it with Ctrl+C.
 If your project already has a virtual environment, reuse it and run the last two
 commands. The code uses a path relative to `app.py` to locate the CSV.
 
-### Run on Linux or macOS
 
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m streamlit run app.py
-```
-
-### Optional Docker start
-
-A Dockerfile is included for the dashboard. With Docker running:
-
-```bash
-docker build -t group21-dashboard .
-docker run --rm -p 8501:8501 group21-dashboard
-```
 
 Open `http://localhost:8501`. The container recipe has not been run in this
 workspace because a Docker engine is not available.
