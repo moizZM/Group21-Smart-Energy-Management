@@ -81,15 +81,8 @@ py -m venv .venv
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-Open the local address printed by Streamlit, normally `http://localhost:8501`.
-Keep the terminal running while using the dashboard. Stop it with Ctrl+C.
-If your project already has a virtual environment, reuse it and run the last two
-commands. The code uses a path relative to `app.py` to locate the CSV.
 
 
-
-Open `http://localhost:8501`. The container recipe has not been run in this
-workspace because a Docker engine is not available.
 
 ### Checks
 
