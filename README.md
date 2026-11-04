@@ -34,12 +34,74 @@ License: CC BY 4.0
 
 ## System Design
 
-UML diagrams will be added as the classes are implemented.
+The rendered diagram below shows Moiz's implemented dashboard classes.
+Each class has a constructor, setup logic, and getter/setter methods.
+
+![Dashboard UML class diagram](docs/dashboard_classes.svg)
 
 ## Team Presentation
 
-The shared presentation video link will be added here.
+**Presentation link: pending the team's recording.**
+
+For Homework 1, record one combined team video lasting 3 to 5 minutes. Each
+member explains their own implemented classes. 
 
 ## Project Status
 
-Repository setup. Project code has not been added yet.
+The dashboard reads the included CSV. Flask, SQLite, the logic engine, and the AI
+engine are later integration work they are not claimed as implemented here.
+The visible daily energy totals describe the original readings, not optimised savings.
+
+## Moiz's Homework 1 Contribution
+
+| Class | Responsibility | Example getter and setter |
+|---|---|---|
+| `DashboardData` | Load and validate readings, filter by day, prepare display totals | `get_readings()` / `set_readings()` |
+| `EnergyChart` | Prepare and display interactive household and solar charts | `get_title()` / `set_title()` |
+| `EnergyDashboard` | Coordinate the objects, date selection, metrics, table, and CSV export | `get_selected_day()` / `set_selected_day()` |
+
+`EnergyDashboard` uses aggregation: it receives a `DashboardData` object and an
+`EnergyChart` object. These objects can be used independently. Each class has its
+own `__init__()` and `setup()` methods. Internal attributes use the underscore
+convention, and setters validate changes. Getters return copies of stored readings.
+
+The dashboard keeps the original day selection and readings table, replaces the
+static plot with interactive charts, and adds appliance breakdown and CSV download.
+
+### How to run
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+### Checks
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+On Linux/macOS use `.venv/bin/python -m unittest discover -s tests -v`.
+The tests check filtering, exact energy sums, leap day handling, invalid input,
+encapsulation, CSV export, and the Streamlit controls against the actual dataset.
+
+### Files and next integration
+
+- `app.py`: creates the objects and starts the dashboard.
+- `dashboard/`: the three dashboard classes and package exports.
+- `docs/dashboard_classes.svg`: rendered UML diagram.
+- `docs/dashboard_classes.mmd`: editable diagram source.
+- `docs/moiz_code_guide.md`: simple code explanation and team input/output agreement.
+- `tests/`: class and application checks.
+
+The existing dataset has 47,040 readings across 980 available days. Each energy
+value is kWh per 30-minute interval. Household energy includes base load, HVAC,
+washing machine, and dishwasher; interval kWh values are summed without an extra
+0.5 factor. The price column is in USD/kWh and is preserved without currency conversion.
+
+For integration, another subsystem can pass a DataFrame into
+`DashboardData.set_readings()`. Required column names, timestamp handling, and
+units are explained in the [code guide](docs/moiz_code_guide.md). This allows
+Pravallika's data access code to supply readings later without rewriting the charts.
+
