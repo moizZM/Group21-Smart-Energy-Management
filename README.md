@@ -39,7 +39,6 @@ Each class has a constructor, setup logic, and getter/setter methods.
 
 ![Dashboard UML class diagram](docs/dashboard_classes.svg)
 
-
 ## Team Presentation
 
 **Presentation link: pending the team's recording.**
@@ -49,12 +48,9 @@ member explains their own implemented classes.
 
 ## Project Status
 
-
-
-The dashboard reads the included CSV. Flask, MySQL, the logic engine, and the AI
+The dashboard reads the included CSV. Flask, SQLite, the logic engine, and the AI
 engine are later integration work they are not claimed as implemented here.
 The visible daily energy totals describe the original readings, not optimised savings.
-
 
 ## Moiz's Homework 1 Contribution
 
@@ -74,25 +70,11 @@ static plot with interactive charts, and adds appliance breakdown and CSV downlo
 
 ### How to run
 
-
 ```powershell
 py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
-
-
-
-
-### Checks
-
-```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
-On Linux/macOS use `.venv/bin/python -m unittest discover -s tests -v`.
-The tests check filtering, exact energy sums, leap day handling, invalid input,
-encapsulation, CSV export, and the Streamlit controls against the actual dataset.
 
 ### Files and next integration
 
@@ -100,9 +82,6 @@ encapsulation, CSV export, and the Streamlit controls against the actual dataset
 - `dashboard/`: the three dashboard classes and package exports.
 - `docs/dashboard_classes.svg`: rendered UML diagram.
 - `docs/dashboard_classes.mmd`: editable diagram source.
-- `docs/moiz_code_guide.md`: simple code explanation and team input/output agreement.
-- `docs/moiz_video_script.txt`: Moiz's section of the team recording.
-- `tests/`: class and application checks.
 
 The existing dataset has 47,040 readings across 980 available days. Each energy
 value is kWh per 30-minute interval. Household energy includes base load, HVAC,
@@ -110,9 +89,8 @@ washing machine, and dishwasher; interval kWh values are summed without an extra
 0.5 factor. The price column is in USD/kWh and is preserved without currency conversion.
 
 For integration, another subsystem can pass a DataFrame into
-`DashboardData.set_readings()`. Required column names, timestamp handling, and
-units are explained in the [code guide](docs/moiz_code_guide.md). This allows
-Pravallika's data access code to supply readings later without rewriting the charts.
+`DashboardData.set_readings()`. This allows Pravallika's data access code to
+supply readings later without rewriting the charts.
 
 ### Team submission checklist
 
