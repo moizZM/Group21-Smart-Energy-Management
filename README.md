@@ -39,9 +39,6 @@ Each class has a constructor, setup logic, and getter/setter methods.
 
 ![Dashboard UML class diagram](docs/dashboard_classes.svg)
 
-The editable [Mermaid source](docs/dashboard_classes.mmd) describes the same model.
-This is the dashboard subsystem diagram. Add the other members' implemented
-subsystem diagrams and their shared connections before the team submission.
 
 ## Team Presentation
 
