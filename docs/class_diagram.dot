@@ -1,0 +1,33 @@
+digraph G {
+  graph [rankdir=BT, nodesep=0.45, ranksep=0.7, fontname="Helvetica", bgcolor="white", pad=0.3];
+  node  [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#F0F0F0", color="#111111"];
+  edge  [fontname="Helvetica", fontsize=10, color="#111111"];
+
+  EnergyAsset [label="{«abstract»\nEnergyAsset|- _asset_id : str  (read-only)\l- _name : str\l|+ asset_id : str\l+ name : str  (get/set)\l+ configure(**settings)\l+ specifications() : dict\l+ state() : dict\l}"];
+  Battery [label="{Battery|- _capacity_kwh : float\l- _efficiency : float\l- _stored_kwh : float\l|+ capacity_kwh, efficiency, stored_kwh  (get/set)\l+ state_of_charge_percent  (get/set)\l+ charge(kwh) : float\l+ discharge(kwh) : float\l+ reset(stored_kwh)\l}"];
+  SolarPanel [label="{SolarPanel|- _area_m2 : float\l- _efficiency : float\l- _performance_ratio : float\l- _last_generation_kwh : float\l|+ area_m2, efficiency,\l   performance_ratio  (get/set)\l+ last_generation_kwh  (get)\l+ generation_kwh(irradiance) : float\l+ reset()\l}"];
+  SmartAppliance [label="{SmartAppliance|- _rated_power_kw : float\l- _status : bool\l- _total_kwh : float\l|+ rated_power_kw, status,\l   total_kwh  (get/set)\l+ turn_on() / turn_off()\l+ run(hours) : float\l+ reset()\l}"];
+  Building [label="{Building|- _name : str\l- _location : str\l- _assets : dict\l|+ name, location  (get/set)\l+ assets : tuple  (get)\l+ setup(assets)\l+ register_asset(asset)\l+ remove_asset(id)\l+ simulate_step(hours, irradiance)\l}"];
+  DatabaseManager [label="{DatabaseManager|- _db_path : str\l- _conn : Connection\l|+ db_path : str  (get/set)\l+ save_asset(asset) / load_asset(id)\l+ add_reading(r) / add_readings(df)\l+ get_readings(...) / summarise_readings(...)\l+ save_result(r) / add_alert(a)\l+ get_alerts() / acknowledge_alert(id)\l}"];
+  EnergyReading [label="{EnergyReading|- _timestamp, _asset_id, _energy_kwh\l- _price, _occupancy, _temperature\l- _indoor_temperature, _hvac_status\l- _solar_kwh\l|+ all attributes  (get/set, validated)\l}"];
+  SimulationResult [label="{SimulationResult|- _run_name, _totals, _cost\l- _parameters, _details\l|+ all attributes  (get/set, validated)\l}"];
+  Alert [label="{Alert|- _asset_id, _severity, _message\l- _timestamp, _acknowledged, _alert_id\l|+ all attributes  (get/set, validated)\l+ acknowledge()\l}"];
+
+  DataImporter [label="{DataImporter|- _columns : dict\l- _required : list\l- _default_asset_id : str\l- _wide : dict\l- _cleaner : DataCleaner\l|+ columns, required_columns,\l   default_asset_id, wide_format  (get/set)\l+ cleaner, last_report  (get)\l+ from_config_file(path)\l+ configure(**settings)\l+ read_table(path) / is_wide_format(df)\l+ reshape_wide(df)\l+ import_into(path, db) : QualityReport\l}"];
+  DataCleaner [label="{DataCleaner|- _limits : dict\l- _max_gap_fill : int\l|+ limits, max_gap_fill  (get/set)\l+ last_report  (get)\l+ set_limit(col, low, high)\l+ remove_limit(col)\l+ clean(df) : (DataFrame, QualityReport)\l}"];
+  QualityReport [label="{QualityReport|- _counts : dict\l- _layout : str\l|+ rows_in, bad_timestamps, duplicates,\l   invalid_readings, rows_saved, ...  (get/set)\l+ layout  (get/set)\l+ as_dict()\l}"];
+
+  Battery -> EnergyAsset [arrowhead=onormal];
+  SolarPanel -> EnergyAsset [arrowhead=onormal];
+  SmartAppliance -> EnergyAsset [arrowhead=onormal];
+  Building -> EnergyAsset [arrowhead=none, arrowtail=odiamond, dir=both, taillabel="1..*", labeldistance=2.2];
+  DatabaseManager -> EnergyAsset [style=dashed, arrowhead=vee, label=" stores / loads"];
+  DatabaseManager -> EnergyReading [style=dashed, arrowhead=vee];
+  DatabaseManager -> SimulationResult [style=dashed, arrowhead=vee];
+  DatabaseManager -> Alert [style=dashed, arrowhead=vee];
+  DataImporter -> DatabaseManager [style=dashed, arrowhead=vee, label=" stores readings"];
+  DataImporter -> DataCleaner [arrowhead=none, arrowtail=odiamond, dir=both];
+  DataCleaner -> QualityReport [style=dashed, arrowhead=vee, label=" creates"];
+  {rank=same; Battery; SolarPanel; SmartAppliance}
+  {rank=same; EnergyReading; SimulationResult; Alert}
+}

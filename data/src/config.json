@@ -1,0 +1,72 @@
+{
+  "db_path": "data/database/energy_management.db",
+  "default_asset_id": "home_total",
+  "total_asset_id": "home_total",
+  "currency": "USD",
+  "columns": {
+    "timestamp": "date",
+    "asset_id": "asset_id",
+    "energy_kwh": "energy_kwh",
+    "price": "price",
+    "occupancy": "occupancy",
+    "temperature": "temperature",
+    "indoor_temperature": "indoor_temperature",
+    "hvac_status": "hvac_status",
+    "solar_kwh": "solar_kwh"
+  },
+  "required": [
+    "timestamp",
+    "energy_kwh"
+  ],
+  "limits": {
+    "energy_kwh": [
+      0,
+      10000
+    ],
+    "price": [
+      -1,
+      10
+    ],
+    "occupancy": [
+      0,
+      100
+    ],
+    "temperature": [
+      -40,
+      60
+    ],
+    "indoor_temperature": [
+      5,
+      45
+    ],
+    "hvac_status": [
+      0,
+      1
+    ],
+    "solar_kwh": [
+      0,
+      1000
+    ]
+  },
+  "wide_format": {
+    "meters": {
+      "base_load": "base_load_kwh",
+      "washing_machine": "washing_machine_kwh",
+      "dishwasher": "dishwasher_kwh",
+      "hvac": "hvac_load_kwh"
+    },
+    "derived_total": "home_total",
+    "context": {
+      "occupancy": "occupancy_count",
+      "temperature": "outdoor_temperature_c",
+      "indoor_temperature": "indoor_temperature_c",
+      "price": "rtp_usd_per_kwh",
+      "solar_kwh": "pv_energy_kwh",
+      "hvac_status": "hvac_state"
+    },
+    "on_if_positive": [
+      "hvac_status"
+    ]
+  },
+  "log_level": "INFO"
+}
