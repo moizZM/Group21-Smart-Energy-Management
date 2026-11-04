@@ -1,5 +1,3 @@
-"""Run Moiz's Homework 1 dashboard with: python -m streamlit run app.py."""
-
 from pathlib import Path
 
 import streamlit as st

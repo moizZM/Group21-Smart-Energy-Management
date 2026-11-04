@@ -1,5 +1,3 @@
-"""Check the actual Streamlit controls and displayed data."""
-
 from datetime import date
 from pathlib import Path
 import unittest

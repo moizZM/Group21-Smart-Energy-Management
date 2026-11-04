@@ -1,5 +1,3 @@
-"""Connect the data, controls and charts. Author: Moiz Zaheer Malik."""
-
 import pandas as pd
 import streamlit as st
 
@@ -8,7 +6,6 @@ from .energy_chart import EnergyChart
 
 
 class EnergyDashboard:
-    """Coordinate the dashboard using the two other subsystem classes."""
 
     def __init__(self, data, chart, title="Smart Energy Dashboard"):
         self._data = None

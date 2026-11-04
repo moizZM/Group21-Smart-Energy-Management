@@ -1,11 +1,8 @@
-"""Build the energy charts. Author: Moiz Zaheer Malik."""
-
 import pandas as pd
 import streamlit as st
 
 
 class EnergyChart:
-    """Prepare labelled chart data and display interactive line charts."""
 
     def __init__(self, title="Household consumption and solar generation", show_components=False):
         self._title = ""

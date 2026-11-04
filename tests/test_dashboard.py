@@ -1,5 +1,3 @@
-"""Checks for Moiz's dashboard classes. Run with unittest discovery."""
-
 from datetime import date
 from io import StringIO
 from pathlib import Path

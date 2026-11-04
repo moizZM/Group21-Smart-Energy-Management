@@ -1,5 +1,3 @@
-"""Prepare the readings used by the dashboard. Author: Moiz Zaheer Malik."""
-
 from math import isfinite
 from pathlib import Path
 
@@ -7,7 +5,6 @@ import pandas as pd
 
 
 class DashboardData:
-    """Load readings, select a day, and prepare simple display totals."""
 
     LOAD_COLUMNS = [
         "base_load_kwh", "hvac_load_kwh",
@@ -21,7 +18,6 @@ class DashboardData:
         self.set_source_path(source_path)
 
     def setup(self):
-        """Load the CSV after the object has been created."""
         if self._source_path is None:
             raise ValueError("Choose a dataset path before calling setup().")
         self.set_readings(pd.read_csv(self._source_path))
@@ -35,11 +31,10 @@ class DashboardData:
         self._source_path = Path(source_path) if source_path is not None else None
 
     def get_readings(self):
-        # Return a copy so other parts cannot change this object's data by mistake.
+        # Return a copy to protect the stored readings.
         return self._readings.copy(deep=True)
 
     def set_readings(self, readings):
-        """Also accepts a DataFrame supplied by another team member later."""
         if not isinstance(readings, pd.DataFrame):
             raise ValueError("Readings must be a pandas DataFrame.")
         if readings.empty:
@@ -71,7 +66,7 @@ class DashboardData:
                 raise ValueError(f"Column {column} contains negative energy values.")
             prepared[column] = values
 
-        # These are interval energy values in kWh. Do not multiply by 0.5 again.
+        # The readings are already in kWh.
         prepared["household_energy_kwh"] = prepared[self.LOAD_COLUMNS].sum(axis=1)
         self._readings = prepared.sort_values("date").reset_index(drop=True)
 
