@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1240" viewBox="0 0 1360 1240" role="img" aria-labelledby="title desc">
+<title id="title">Group 21 dashboard UML class diagram</title>
+<desc id="desc">EnergyDashboard aggregates one DashboardData and one EnergyChart. All three classes have constructors, setup methods, and getters and setters.</desc>
+<rect width="1360" height="1240" fill="white"/>
+<text x="40" y="35" font-family="Arial" font-size="25" fill="#142239">Group 21 · Moiz Zaheer Malik · Dashboard classes</text>
+<rect x="360" y="70" width="640" height="537" rx="5" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+<rect x="361" y="71" width="638" height="50" fill="#e8eef8"/>
+<text x="680.0" y="103" text-anchor="middle" font-family="Arial" font-size="23" font-weight="bold" fill="#142239">EnergyDashboard</text>
+<path d="M360 122 H1000" stroke="#64748b"/>
+<text x="378" y="152" font-family="monospace" font-size="17" fill="#24344c">- _data: DashboardData</text>
+<text x="378" y="179" font-family="monospace" font-size="17" fill="#24344c">- _chart: EnergyChart</text>
+<text x="378" y="206" font-family="monospace" font-size="17" fill="#24344c">- _title: str</text>
+<text x="378" y="233" font-family="monospace" font-size="17" fill="#24344c">- _selected_day: date</text>
+<path d="M360 251 H1000" stroke="#64748b"/>
+<text x="378" y="281" font-family="monospace" font-size="17" fill="#24344c">+ __init__(data, chart, title)</text>
+<text x="378" y="308" font-family="monospace" font-size="17" fill="#24344c">+ setup()</text>
+<text x="378" y="335" font-family="monospace" font-size="17" fill="#24344c">+ get_data()</text>
+<text x="378" y="362" font-family="monospace" font-size="17" fill="#24344c">+ set_data(data)</text>
+<text x="378" y="389" font-family="monospace" font-size="17" fill="#24344c">+ get_chart()</text>
+<text x="378" y="416" font-family="monospace" font-size="17" fill="#24344c">+ set_chart(chart)</text>
+<text x="378" y="443" font-family="monospace" font-size="17" fill="#24344c">+ get_title()</text>
+<text x="378" y="470" font-family="monospace" font-size="17" fill="#24344c">+ set_title(title)</text>
+<text x="378" y="497" font-family="monospace" font-size="17" fill="#24344c">+ get_selected_day()</text>
+<text x="378" y="524" font-family="monospace" font-size="17" fill="#24344c">+ set_selected_day(selected_day)</text>
+<text x="378" y="551" font-family="monospace" font-size="17" fill="#24344c">+ export_selected_day()</text>
+<text x="378" y="578" font-family="monospace" font-size="17" fill="#24344c">+ render()</text>
+<rect x="40" y="760" width="620" height="402" rx="5" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+<rect x="41" y="761" width="618" height="50" fill="#e8eef8"/>
+<text x="350.0" y="793" text-anchor="middle" font-family="Arial" font-size="23" font-weight="bold" fill="#142239">DashboardData</text>
+<path d="M40 812 H660" stroke="#64748b"/>
+<text x="58" y="842" font-family="monospace" font-size="17" fill="#24344c">- _source_path: Path | None</text>
+<text x="58" y="869" font-family="monospace" font-size="17" fill="#24344c">- _readings: DataFrame</text>
+<path d="M40 887 H660" stroke="#64748b"/>
+<text x="58" y="917" font-family="monospace" font-size="17" fill="#24344c">+ __init__(source_path)</text>
+<text x="58" y="944" font-family="monospace" font-size="17" fill="#24344c">+ setup()</text>
+<text x="58" y="971" font-family="monospace" font-size="17" fill="#24344c">+ get_source_path()</text>
+<text x="58" y="998" font-family="monospace" font-size="17" fill="#24344c">+ set_source_path(source_path)</text>
+<text x="58" y="1025" font-family="monospace" font-size="17" fill="#24344c">+ get_readings()</text>
+<text x="58" y="1052" font-family="monospace" font-size="17" fill="#24344c">+ set_readings(readings)</text>
+<text x="58" y="1079" font-family="monospace" font-size="17" fill="#24344c">+ get_available_days()</text>
+<text x="58" y="1106" font-family="monospace" font-size="17" fill="#24344c">+ get_day_readings(selected_day)</text>
+<text x="58" y="1133" font-family="monospace" font-size="17" fill="#24344c">+ get_daily_totals(selected_day)</text>
+<rect x="700" y="760" width="620" height="375" rx="5" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+<rect x="701" y="761" width="618" height="50" fill="#e8eef8"/>
+<text x="1010.0" y="793" text-anchor="middle" font-family="Arial" font-size="23" font-weight="bold" fill="#142239">EnergyChart</text>
+<path d="M700 812 H1320" stroke="#64748b"/>
+<text x="718" y="842" font-family="monospace" font-size="17" fill="#24344c">- _title: str</text>
+<text x="718" y="869" font-family="monospace" font-size="17" fill="#24344c">- _show_components: bool</text>
+<path d="M700 887 H1320" stroke="#64748b"/>
+<text x="718" y="917" font-family="monospace" font-size="17" fill="#24344c">+ __init__(title, show_components)</text>
+<text x="718" y="944" font-family="monospace" font-size="17" fill="#24344c">+ setup(title, show_components)</text>
+<text x="718" y="971" font-family="monospace" font-size="17" fill="#24344c">+ get_title()</text>
+<text x="718" y="998" font-family="monospace" font-size="17" fill="#24344c">+ set_title(title)</text>
+<text x="718" y="1025" font-family="monospace" font-size="17" fill="#24344c">+ get_show_components()</text>
+<text x="718" y="1052" font-family="monospace" font-size="17" fill="#24344c">+ set_show_components(show_components)</text>
+<text x="718" y="1079" font-family="monospace" font-size="17" fill="#24344c">+ prepare_data(readings)</text>
+<text x="718" y="1106" font-family="monospace" font-size="17" fill="#24344c">+ render(readings)</text>
+<path d="M535 607 l-9 14 l9 14 l9 -14 Z" stroke="#334155" stroke-width="2" fill="white"/>
+<path d="M535 635 V690 H350 V760" stroke="#334155" stroke-width="2" fill="none"/>
+<text x="553" y="647" font-family="Arial" font-size="18" fill="#334155">1</text>
+<text x="362" y="747" font-family="Arial" font-size="18" fill="#334155">1</text>
+<text x="354" y="676" font-family="Arial" font-size="18" fill="#334155">uses readings</text>
+<path d="M825 607 l-9 14 l9 14 l9 -14 Z" stroke="#334155" stroke-width="2" fill="white"/>
+<path d="M825 635 V690 H1010 V760" stroke="#334155" stroke-width="2" fill="none"/>
+<text x="843" y="647" font-family="Arial" font-size="18" fill="#334155">1</text>
+<text x="1022" y="747" font-family="Arial" font-size="18" fill="#334155">1</text>
+<text x="829" y="676" font-family="Arial" font-size="18" fill="#334155">displays charts</text>
+<text x="40" y="1210" font-family="Arial" font-size="17" fill="#475569">Hollow diamond: aggregation (has an object).   + public method   − internal attribute (Python convention).</text></svg>

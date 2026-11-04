@@ -1,0 +1,33 @@
+Moiz's section for the Homework 1 team video
+Target: about one minute. Combine it with the other members' recordings.
+
+SCRIPT
+
+I'm Moiz, and my part is the dashboard. I implemented three Python classes.
+
+DashboardData loads the energy readings, checks them, and selects the readings
+for a chosen day. It also prepares the daily household and solar totals.
+
+EnergyChart prepares the chart data and displays the energy graphs.
+
+EnergyDashboard connects these objects and shows the date selector, totals,
+graphs, readings table, and CSV download.
+
+Each class has a constructor, setup logic, and getters and setters. For example,
+the selected day is changed through a setter that checks whether data exists.
+
+The dashboard uses objects of the other two classes. This relationship is
+aggregation. The data object can also be used independently.
+
+Here I change the day, show the appliance breakdown, and download its readings.
+
+RECORDING ORDER
+
+1. Show the UML diagram and name the three classes.
+2. Show the constructors and one getter/setter pair in the code.
+3. Show EnergyDashboard receiving the data and chart objects.
+4. Switch to the running dashboard and select another date.
+5. Tick Show appliance breakdown and click Download this day's readings.
+
+Practice once before recording. You should be able to explain each line you show.
+The team's complete video must last 3 to 5 minutes and include all four members.

@@ -1,0 +1,47 @@
+classDiagram
+    direction TB
+    class EnergyDashboard {
+        -DashboardData _data
+        -EnergyChart _chart
+        -str _title
+        -date _selected_day
+        +__init__(data, chart, title)
+        +setup()
+        +get_data() DashboardData
+        +set_data(data)
+        +get_chart() EnergyChart
+        +set_chart(chart)
+        +get_title() str
+        +set_title(title)
+        +get_selected_day() date
+        +set_selected_day(day)
+        +export_selected_day() bytes
+        +render()
+    }
+    class DashboardData {
+        -Path _source_path
+        -DataFrame _readings
+        +__init__(source_path)
+        +setup()
+        +get_source_path() Path
+        +set_source_path(path)
+        +get_readings() DataFrame
+        +set_readings(readings)
+        +get_available_days() list
+        +get_day_readings(day) DataFrame
+        +get_daily_totals(day) dict
+    }
+    class EnergyChart {
+        -str _title
+        -bool _show_components
+        +__init__(title, show_components)
+        +setup(title, show_components)
+        +get_title() str
+        +set_title(title)
+        +get_show_components() bool
+        +set_show_components(value)
+        +prepare_data(readings) DataFrame
+        +render(readings)
+    }
+    EnergyDashboard "1" o-- "1" DashboardData : uses readings
+    EnergyDashboard "1" o-- "1" EnergyChart : displays charts
