@@ -1,4 +1,4 @@
-# Moiz's code guide
+# Moiz's code guide.
 
 This guide explains the dashboard contribution for Homework 1 in simple words.
 
