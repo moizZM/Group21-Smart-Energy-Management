@@ -53,7 +53,7 @@ is ready to practise. Add the real video URL here once the team uploads it.
 
 ## Project Status
 
-This `Homeassignment1` branch contains Moiz's completed dashboard contribution
+This `Homeworkassignment001` branch contains Moiz's completed dashboard contribution
 for Homework 1. The other three members' code and the recorded team video must
 be integrated before the complete team assignment is submitted.
 
@@ -149,4 +149,4 @@ Pravallika's data access code to supply readings later without rewriting the cha
 - Keep the shared project runnable and review each other's code.
 - Add all subsystem diagrams and their connections.
 - Record and link the combined team video, with every member explaining their part.
-- Submit the correct `Homeassignment1` branch link through the course assignment.
+- Submit the correct `Homeworkassignment001` branch link through the course assignment.
