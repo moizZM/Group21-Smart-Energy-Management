@@ -48,17 +48,14 @@ subsystem diagrams and their shared connections before the team submission.
 **Presentation link: pending the team's recording.**
 
 For Homework 1, record one combined team video lasting 3 to 5 minutes. Each
-member explains their own implemented classes. The [Moiz video script](docs/moiz_video_script.txt)
-is ready to practise. Add the real video URL here once the team uploads it.
+member explains their own implemented classes. 
 
 ## Project Status
 
-This `Homeworkassignment001` branch contains Moiz's completed dashboard contribution
-for Homework 1. The other three members' code and the recorded team video must
-be integrated before the complete team assignment is submitted.
+
 
 The dashboard reads the included CSV. Flask, MySQL, the logic engine, and the AI
-engine are later integration work; they are not claimed as implemented here.
+engine are later integration work they are not claimed as implemented here.
 The visible daily energy totals describe the original readings, not optimised savings.
 
 
