@@ -180,3 +180,75 @@ For integration, another subsystem can pass a DataFrame into
 - Add all subsystem diagrams and their connections.
 - Record and link the combined team video, with every member explaining their part.
 - Submit the correct `Homeworkassignment001` branch link through the course assignment.
+
+---
+
+## Moiz's Homework 3: Dashboard Database Connection
+
+The dashboard now receives historical readings from Pravallika's SQLite
+database through a local Flask API.
+
+### Integration files
+
+- `database_reader.py` reads the stored meter readings and prepares the
+  columns needed by the dashboard.
+- `api_server.py` checks the prepared readings and provides them through
+  the `/api/readings` endpoint.
+- `app.py` requests the readings from Flask and passes them to the
+  existing dashboard classes.
+
+The database reader uses the four individual household loads to calculate
+consumption. It excludes the stored household total from this calculation
+and takes solar generation and price once per timestamp.
+
+### Running this version
+
+These instructions apply to `Homeworkassignment003` on Windows.
+Create the `.venv` environment using the setup instructions above first.
+
+Run the following commands from the main project folder.
+
+#### Install dependencies and prepare the database
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+Set-Location data
+..\.venv\Scripts\python.exe -m src.main --file Full_HA_dataset.csv
+Set-Location ..
+```
+
+The generated database is stored locally and excluded from Git.
+Each teammate can create it using the importer.
+
+#### Terminal 1: start the Flask API
+
+```powershell
+.\.venv\Scripts\python.exe api_server.py
+```
+
+Keep this terminal running. The readings endpoint is:
+
+```text
+http://127.0.0.1:5000/api/readings
+```
+
+#### Terminal 2: start the Streamlit dashboard
+
+Open another terminal in the main project folder:
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+Open the address printed by Streamlit. Both servers must remain running.
+Press Ctrl+C in each terminal to stop them.
+
+### Checks performed
+
+- The API returned 47,040 timestamps.
+- Full dataset household consumption was 35,813.98 kWh.
+- Full dataset solar generation was 15,078.87 kWh.
+- Day selection, charts, appliance breakdown and CSV download worked.
+
+These totals describe the historical dataset. Integration with Elizabeth's
+logic engine and Kennedy's AI engine remains future work.
