@@ -178,6 +178,36 @@ For integration, another subsystem can pass a DataFrame into
 `DashboardData.set_readings()`. This allows Pravallika's data access code to supply readings later without rewriting the charts.
 
 
+------
+## AI Engine Subsystem | Hometask Assignment 01 Contribution
+## Joachim Kennedy Gomes
+
+### Summary
+1. **Class Hierarchy & Inheritance:**
+   - Designed a robust base supervisor class (`AlEngine`) managing component identification (`component_id`) and subsystem health status (`SubsystemStatus` enum).
+   - Inherited specialized operational classes (`EnergyAdvisor` and `Summarizer`) using `super().__init__()` to promote code reusability.
+
+### AI Engine Subsystem | Class Diagram
+<img width="727" height="612" alt="AIEngine_ClassDiag01 drawio" src="https://github.com/user-attachments/assets/63643b3d-5fdd-4116-8c10-33b1598a4bfb" />
+
+### AI Engine Subsystem | Class Reference Table
+
+| Class Name | Inheritance / Type | Core Features & Responsibilities | Key Attributes |
+| :--- | :--- | :--- | :--- |
+| **`AlEngine`** | Base Class | Acts as the supervisor base class for the AI subsystem, tracking component identification and operational health status. | `_component_id` (int)<br>`_status` (SubsystemStatus) |
+| **`EnergyAdvisor`** | Inherits `AlEngine` | Evaluates real-time electricity pricing and solar generation thresholds to formulate automated battery dispatch decisions. | `_price_threshold` (float)<br>`_component_id` (int)<br>`_status` (SubsystemStatus) |
+| **`Summarizer`** | Inherits `AlEngine` | Manages secure API communication with OpenAI (`gpt-4o-mini`) and compiles executive building energy sustainability reports with offline fallback. | `_model_name` (str)<br>`_api_key` (str)<br>`client` (OpenAI / Any)<br>`_component_id` (int) |
+| **`SubsystemStatus`** | Enum | Defines standardized lifecycle and health states for monitoring subsystem readiness and execution health. | `INITIALIZED`<br>`RUNNING`<br>`DEGRADED`<br>`FAILED` |
+
+### Setup and Run
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+------
+
+
 ### Team submission checklist
 
 - Integrate at least three unique classes from each member (at least 12 total).
