@@ -267,3 +267,20 @@ Run from the main project folder:
 
 All 12 tests passed. They use simulated responses and Flask's test client.
 Flask and Streamlit do not need to be running.
+
+### Moiz: Electricity Price Graph
+
+The dashboard displays electricity prices for the selected day in USD/kWh.
+Prices keep their original dataset values, including valid negative prices.
+
+Eight price-chart tests check data preparation, numeric conversion, negative
+prices, invalid values, missing columns, timestamps and protection of the
+original readings.
+
+All 20 tests on this branch passed: 12 connection tests and eight price tests.
+
+Run them from the main project folder:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
