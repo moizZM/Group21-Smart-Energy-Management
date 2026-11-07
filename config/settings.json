@@ -1,0 +1,8 @@
+{
+  "peak_rate": 0.35,
+  "off_peak_rate": 0.15,
+  "carbon_intensity_kg_kwh": 0.35,
+  "peak_threshold_kw": 3.0,
+  "battery_capacity_kwh": 10.0,
+  "solar_panel_area_m2": 15.0
+}
