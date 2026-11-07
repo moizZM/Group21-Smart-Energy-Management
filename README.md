@@ -252,3 +252,18 @@ Press Ctrl+C in each terminal to stop them.
 
 These totals describe the historical dataset. Integration with Elizabeth's
 logic engine and Kennedy's AI engine remains future work.
+
+### Moiz: API Connection Tests
+
+The 12 automated tests cover valid API responses, invalid JSON, unexpected
+response formats, unavailable servers, database failures, missing columns,
+negative energy values and dashboard error messages.
+
+Run from the main project folder:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -p test_api_connection.py -v
+```
+
+All 12 tests passed. They use simulated responses and Flask's test client.
+Flask and Streamlit do not need to be running.
