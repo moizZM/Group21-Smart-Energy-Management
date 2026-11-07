@@ -133,6 +133,11 @@ with `DatabaseManager`.
 Other project components can retrieve historical readings as a DataFrame using
 `DatabaseManager.get_readings()`.
 
+System Design:
+<img width="3416" height="1149" alt="image" src="https://github.com/user-attachments/assets/fcc13a7d-9702-465c-a419-ab6eab66b61e" />
+
+
+
 ## Moiz's Homework 1 Contribution
 
 | Class | Responsibility | Example getter and setter |
