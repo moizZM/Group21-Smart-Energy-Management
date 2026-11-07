@@ -16,6 +16,8 @@ emissions while maintaining household comfort.
 | Joachim Kennedy Gomes | AI Engine and Summary |
 | Moiz Zaheer Malik | Web UI / Dashboard |
 
+<img width="1090" height="1226" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/a1140a31-b350-4657-a1fe-550c15872238" />
+
 ## Planned Features
 
 - Load energy, solar, price and occupancy data.
