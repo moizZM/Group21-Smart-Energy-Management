@@ -64,3 +64,32 @@ list and measurement details.
 Repository: https://github.com/moizZM/Group21-Smart-Energy-Management
 
 Submit the `Homeworkassignment0004` branch for Hometask 4.
+
+
+---
+
+### Moiz Zaheer Malik — Dashboard
+
+My Hometask 4 contribution adds the dashboard classes, a custom exception
+class and 18 automated unit tests.
+
+- `dashboard/errors.py`: defines `DashboardError`, which inherits from
+  `ValueError`.
+- `dashboard/dashboard_data.py`: validates readings and prepares daily totals.
+- `dashboard/energy_chart.py`: prepares chart data and validates chart settings.
+- `dashboard/energy_dashboard.py`: manages day selection and CSV export.
+- `tests/test_dashboard.py`: contains the dashboard tests.
+
+The tests cover daily totals, day filtering, timestamp sorting, CSV loading
+and export, chart preparation, protection against outside data changes,
+and rejection of invalid readings or settings.
+
+Run the dashboard tests from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+The dashboard test run passed 18 tests. These tests use sample readings and
+temporary files. They do not require a running Flask server or an application
+database.
