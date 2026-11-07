@@ -15,7 +15,7 @@ class DataValidationError(LogicEngineBaseError):
     pass
 
 class DatabaseConnectionError(LogicEngineBaseError):
-    """Raised when the teammate's database cannot be read."""
+    """Raised when the database cannot be read."""
     pass
 
 class ErrorManager:
