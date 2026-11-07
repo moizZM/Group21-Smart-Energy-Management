@@ -184,8 +184,8 @@ For integration, another subsystem can pass a DataFrame into
 
 ### Summary
 1. **Class Hierarchy & Inheritance:**
-   - Designed a robust base supervisor class (`AlEngine`) managing component identification (`component_id`) and subsystem health status (`SubsystemStatus` enum).
-   - Inherited specialized operational classes (`EnergyAdvisor` and `Summarizer`) using `super().__init__()` to promote code reusability.
+   - Base class (`AlEngine`) managing component identification (`component_id`) and subsystem health status (`SubsystemStatus` enum).
+   - Inherited operational classes (`EnergyAdvisor` and `Summarizer`) using `super().__init__()`.
 
 ### AI Engine Subsystem | Class Diagram
 <img width="727" height="612" alt="AIEngine_ClassDiag01 drawio" src="https://github.com/user-attachments/assets/63643b3d-5fdd-4116-8c10-33b1598a4bfb" />
