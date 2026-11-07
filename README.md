@@ -1,4 +1,8 @@
 # AI-Powered Smart Energy Management System
+
+## Link to the video for HomeAssignment002
+<https://drive.google.com/file/d/1KJjlYSpLCZq4zsQD2IP8uLJL2xaH4pJz/view?usp=sharing>
+
 ## Group 21
 
 A Python project that simulates household electricity use,
