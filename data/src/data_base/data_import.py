@@ -16,6 +16,10 @@ logger = logging.getLogger(__name__)
 READERS = {".csv": pd.read_csv, ".parquet": pd.read_parquet}
 
 
+class DataImportError(ValueError):
+    """Raised when an input file cannot be read or reshaped for import."""
+
+
 def load_config(path: str = "config.json") -> dict[str, Any]:
     """Load the JSON configuration file."""
     try:
@@ -120,11 +124,16 @@ class DataImporter:
         """Read a .csv or .parquet file into a DataFrame."""
         file = Path(path)
         if not file.is_file():
-            raise FileNotFoundError(f"Input file not found: {path}")
+            raise DataImportError(f"Input file not found: {path}")
         reader = READERS.get(file.suffix.lower())
         if reader is None:
-            raise ValueError(f"Unsupported file type '{file.suffix}'. Use: {', '.join(READERS)}")
-        return reader(file)
+            raise DataImportError(
+                f"Unsupported file type '{file.suffix}'. Use: {', '.join(READERS)}"
+            )
+        try:
+            return reader(file)
+        except (OSError, ImportError, pd.errors.ParserError) as exc:
+            raise DataImportError(f"Cannot read input file '{path}': {exc}") from exc
 
     def is_wide_format(self, df: pd.DataFrame) -> bool:
         """True if the table has one column per meter (e.g. the ML dataset layout)."""
@@ -140,11 +149,11 @@ class DataImporter:
         """
         wide = self._wide
         if not wide:
-            raise ValueError("No wide_format configured")
+            raise DataImportError("No wide_format configured")
         context: dict[str, str] = wide.get("context", {})
         missing = [c for c in ["timestamp", *context.values()] if c not in df.columns]
         if missing:
-            raise ValueError(f"Input data is missing columns: {missing}")
+            raise DataImportError(f"Input data is missing columns: {missing}")
 
         df = df.copy()
         base = pd.DataFrame({"timestamp": pd.to_datetime(df["timestamp"], errors="coerce")})

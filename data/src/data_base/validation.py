@@ -14,11 +14,15 @@ NUMERIC = ["energy_kwh", "price", "occupancy", "temperature", "indoor_temperatur
 FILL_COLUMNS = ["price", "temperature", "indoor_temperature"]
 
 
+class DataValidationError(ValueError):
+    """Raised when imported readings do not meet the required data contract."""
+
+
 def check_required_columns(df: pd.DataFrame, required: list[str]) -> None:
     """Raise ValueError if a required column is missing."""
     missing = [c for c in required if c not in df.columns]
     if missing:
-        raise ValueError(f"CSV is missing required columns: {missing}")
+        raise DataValidationError(f"CSV is missing required columns: {missing}")
 
 
 def _counter(name: str, doc: str) -> property:
