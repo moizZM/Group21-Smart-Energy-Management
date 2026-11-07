@@ -65,6 +65,19 @@ Repository: https://github.com/moizZM/Group21-Smart-Energy-Management
 
 Submit the `Homeworkassignment0004` branch for Hometask 4.
 
+------
+### Unit Test Suite Summary | AI Engine subsystem
+
+| Test Case / Method | Tested Functionality & Assertions |
+| :--- | :--- |
+| **`test_01_battery_soc`** | Validates initial Battery State of Charge (SoC) calculation (defaults to 50% capacity). |
+| **`test_02_battery_charge`** | Tests battery charging mechanics and verifies correct energy accumulation against efficiency boundaries. |
+| **`test_03_config_manager`** | Verifies that configuration parameters (active thresholds, tariff rates) load successfully from JSON. |
+| **`test_04_ai_engine_init`** | Confirms proper object instantiation and operational status transition from `INITIALIZED` to `RUNNING`. |
+| **`test_05_advisor_recommendation`** | Tests rule-based battery dispatch logic (`DISCHARGE`, `CHARGE`, `HOLD`) under various price and solar generation boundaries. |
+| **`test_06_summarizer_report`** | Validates OpenAI integration and offline fallback formatting for executive sustainability reports. |
+| **`test_07_database_init`** | Asserts correct SQLite schema creation and table initialization (`cleaned_data`, `ai_logs`). |
+------
 
 ---
 
