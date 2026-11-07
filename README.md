@@ -206,8 +206,12 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 ------
+## Elizabeth Chikhladze - Logic Engine
 
+### Class Diagram
+<img width="1262" height="859" alt="logic_engine_class_diagram drawio" src="https://github.com/user-attachments/assets/f853dd93-49c1-4e3f-a8a5-2ec9744388dd" />
 
+------
 ### Team submission checklist
 
 - Integrate at least three unique classes from each member (at least 12 total).
