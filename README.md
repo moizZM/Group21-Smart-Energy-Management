@@ -1,6 +1,7 @@
 # AI-Powered Smart Energy Management System
 ## Group 21
-
+## Video link for Database Access and Web Application Using Flask:
+(https://drive.google.com/file/d/1JpGdThGkxlC3Hdem0WNNzoET9P1eTuc7/view?usp=drive_link)
 A Python project that simulates household electricity use,
 solar generation, battery storage and smart appliances.
 
