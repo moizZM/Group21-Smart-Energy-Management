@@ -1,5 +1,6 @@
 # Hometask 4: Error Handling and Unit Testing
-
+## Video link explaining Error Handling and Unit Testing of Subsystems:
+https://drive.google.com/drive/u/3/folders/18bESrPFPBMTsLYPtu5ILSmlqcQtxHSCx
 ### Varikuti Pravallika — Assets and Database
 
 My Hometask 4 contribution adds explicit error handling and automated tests for
