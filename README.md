@@ -7,6 +7,11 @@ solar generation, battery storage and smart appliances.
 The system aims to reduce electricity costs and carbon
 emissions while maintaining household comfort.
 
+## Link to the Video explaining each subsystem for Homeassignment 01
+
+[Watch the team video]
+https://drive.google.com/file/d/1a9Y8HbCJ4pRX6mTHYq8y8ZrjILVPyBq-/view?usp=drive_link
+
 ## Team Members
 
 | Member | Responsibility |
