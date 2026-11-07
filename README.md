@@ -65,6 +65,44 @@ Repository: https://github.com/moizZM/Group21-Smart-Energy-Management
 
 Submit the `Homeworkassignment0004` branch for Hometask 4.
 
+### Elizabeth Chikhladze - Logic Engine
+The Logic Engine subsystem includes 15 automated unit tests designed to validate core business logic, structural integrity, and edge-case resilience.
+
+#### Test Coverage Breakdown
+1. **Configuration Management (Tests 1-3)**
+
+*Fallback Reliability*: Ensures the system successfully loads hardcoded default values if config.json is missing or deleted.
+
+*Dynamic Overrides*: Verifies that loaded JSON parameters correctly overwrite internal defaults.
+
+*Encapsulation*: Confirms that the configuration dictionary is properly isolated and returned.
+
+2. **Data Stream Filtering (Tests 4-6)**
+
+*hreshold Execution*: Validates that readings below the active_threshold_kwh are accurately dropped from the processing pipeline.
+
+*Empty Stream Handling*: Ensures the filter safely processes an empty database without crashing.
+
+*Missing Key Resilience*: Confirms KeyError exceptions are prevented if incoming database records are missing expected columns.
+
+3. **Mathematical Logic & Edge Cases (Tests 7-12)**
+
+*Cost & Carbon Precision*: Verifies the Cost = Energy * Price formula and tests the dynamic shift between peak (0.450) and off-peak (0.300) carbon intensities based on timestamps.
+
+*Score Capping*: Ensures the 0-100 sustainability score never exceeds 100%, even with near-zero energy consumption.
+
+*Peak Demand Detection*: Validates that any localized energy spike exceeding the 50.0 kW threshold is successfully detected and logged.
+
+*Null-Value Substitution*: Ensures missing prices or blank solar readings default to 0.0 rather than causing a NaN math failure.
+
+4. **Pipeline Orchestration & Error Recovery (Tests 13-15)**
+
+*Composite Chaining*: Tests the operator overloading (|) to ensure the filter and math processors chain together correctly and share state.
+
+*Safe Fallbacks*: Verifies that the ErrorManager successfully intercepts fatal crashes (e.g., division by zero) and returns a formatted fallback dictionary to prevent dashboard failures.
+
+*Dynamic Grouping*: Ensures energy usage is correctly aggregated by asset_id regardless of how many distinct assets the external database contains.
+
 ------
 ### Unit Test Suite Summary | AI Engine subsystem
 
