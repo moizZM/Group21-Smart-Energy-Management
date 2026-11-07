@@ -105,6 +105,7 @@ The Logic Engine subsystem includes 15 automated unit tests designed to validate
 
 ------
 ### Unit Test Suite Summary | AI Engine subsystem
+### Joachim Kennedy Gomes
 
 | Test Case / Method | Tested Functionality & Assertions |
 | :--- | :--- |
