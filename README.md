@@ -9,6 +9,76 @@ solar generation, battery storage and smart appliances.
 The system aims to reduce electricity costs and carbon
 emissions while maintaining household comfort.
 
+## Final integration demo
+
+Use the **final-integration** branch for the combined demo. Choose a date to
+view household electricity use, solar generation, electricity prices, and the
+individual household loads. The dashboard also shows estimated daily cost and
+carbon emissions, a battery recommendation for the highest-price interval, and
+a sustainability summary. You can download the selected day's readings as CSV.
+
+Pravallika's importer prepares and stores the readings in SQLite. Moiz's Flask
+API retrieves them and passes the selected day's data to Elizabeth's logic
+engine and Kennedy's advisor and summarizer. Moiz's Streamlit dashboard shows
+their results together.
+
+### 1. Install dependencies and prepare the database
+
+Open PowerShell in the repository root on the final-integration branch. If the
+project already has a .venv folder, skip the first command.
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+Set-Location .\data
+..\.venv\Scripts\python.exe -m src.main --file Full_HA_dataset.csv
+Set-Location ..
+```
+
+The importer creates the local SQLite database from the included dataset. Each
+teammate runs this step on their own machine.
+
+### 2. Start the Flask API
+
+Run this in the first terminal from the repository root and leave it running.
+
+```powershell
+.\.venv\Scripts\python.exe api_server.py
+```
+
+### 3. Start the Streamlit dashboard
+
+Open a second terminal in the repository root.
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+Open the local address printed by Streamlit. Choose **1 January 2020** to see
+55.31 kWh of household consumption, 9.24 kWh of solar generation, and
+48 half-hour readings. The demo shows an estimated cost of $1.32 and estimated
+emissions of 17.79 kg CO₂. The sustainability summary works offline.
+
+### Verify the demo
+
+With Flask running, open a free PowerShell terminal and request the daily
+results directly.
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:5000/api/metrics/2020-01-01 | Format-List
+```
+
+We checked that changing the date updates the dashboard. The 20 API connection
+and electricity price chart tests also passed on this branch. To run them from
+the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+The demo reports estimates based on historical readings. Battery charge levels
+over time and savings against a baseline are planned features.
+
 ## Team Members
 
 | Member | Responsibility |
@@ -72,16 +142,16 @@ For Homework 1, record one combined team video lasting 3 to 5 minutes. Each
 member explains their own implemented classes. 
 
 
-## Project Status
+## Homework 1 Project Status
 
-The dashboard reads the included CSV, and the assets and SQLite database
-subsystem is implemented separately. Integration of these components with the
-dashboard, logic engine, and AI engine remains future work. The visible daily
-energy totals describe the original readings, not optimised savings.
+For Homework 1, the dashboard read the included CSV. The assets and SQLite
+database subsystem ran separately. See the [final integration demo](#final-integration-demo)
+for the current setup.
 
 ## Varikuti Pravallika's Homework 1 Contribution
 
 | Class | Responsibility | Example behavior |
+|---|---|---|
 | `EnergyAsset` | Define the common identity, configuration, and state interface for assets | `configure()` / `state()` |
 | `Battery` | Track battery capacity, efficiency, and stored energy | `charge()` / `discharge()` |
 | `SolarPanel` | Estimate energy generation from irradiance and panel specifications | `generation_kwh()` |
@@ -252,8 +322,9 @@ Press Ctrl+C in each terminal to stop them.
 - Full dataset solar generation was 15,078.87 kWh.
 - Day selection, charts, appliance breakdown and CSV download worked.
 
-These totals describe the historical dataset. Integration with Elizabeth's
-logic engine and Kennedy's AI engine remains future work.
+These totals describe the historical dataset used for Homework 3. The
+[final integration demo](#final-integration-demo) adds Elizabeth's logic
+engine and Kennedy's advisor and summarizer.
 
 ### Moiz: API Connection Tests
 
