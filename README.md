@@ -357,3 +357,16 @@ Run them from the main project folder:
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
+
+## Run with Docker
+
+With Docker running, open a terminal in the project folder and run:
+
+```bash
+docker build -t group21-energy .
+docker run --rm --init -p 127.0.0.1:8502:8501 group21-energy
+```
+
+If your Linux setup requires it, add `sudo` before each `docker` command.
+Open http://localhost:8502 in your browser and choose a date.
+Press Ctrl+C in the terminal to stop the app.

@@ -1,0 +1,9 @@
+.git
+.venv
+.env
+.env.*
+**/.env
+**/.env.*
+**/__pycache__
+**/*.pyc
+data/src/data/database/
