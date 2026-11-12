@@ -368,5 +368,10 @@ docker run --rm --init -p 127.0.0.1:8502:8501 group21-energy
 ```
 
 If your Linux setup requires it, add `sudo` before each `docker` command.
+
+```bash
+sudo docker build -t group21-energy .
+sudo docker run --rm --init -p 127.0.0.1:8502:8501 group21-energy
+```
 Open http://localhost:8502 in your browser and choose a date.
 Press Ctrl+C in the terminal to stop the app.
