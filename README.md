@@ -9,6 +9,14 @@ solar generation, battery storage and smart appliances.
 The system aims to reduce electricity costs and carbon
 emissions while maintaining household comfort.
 
+## Team Presentation
+
+**Presentation link: pending the team's recording.**
+
+For Homework 1, record one combined team video lasting 3 to 5 minutes. Each
+member explains their own implemented classes. 
+
+
 ## Final integration demo
 
 Use the **final-integration** branch for the combined demo. Choose a date to
@@ -134,12 +142,6 @@ Each class has a constructor, setup logic, and getter/setter methods.
 
 ![Dashboard UML class diagram](docs/dashboard_classes.svg)
 
-## Team Presentation
-
-**Presentation link: pending the team's recording.**
-
-For Homework 1, record one combined team video lasting 3 to 5 minutes. Each
-member explains their own implemented classes. 
 
 
 ## Homework 1 Project Status
