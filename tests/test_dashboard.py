@@ -6,7 +6,6 @@ from tempfile import TemporaryDirectory
 import pandas as pd
 
 from dashboard import DashboardData, EnergyChart, EnergyDashboard
-from dashboard.errors import DashboardError
 
 
 class DashboardTests(unittest.TestCase):
@@ -78,31 +77,31 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(stored.loc[0, "household_energy_kwh"], 3.75)
 
     def test_rejects_input_that_is_not_a_dataframe(self):
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             self.data.set_readings([1, 2, 3])
 
     def test_rejects_empty_readings(self):
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             self.data.set_readings(pd.DataFrame())
 
     def test_reports_a_missing_load_column(self):
         bad = self.readings.drop(columns=["hvac_load_kwh"])
 
-        with self.assertRaisesRegex(DashboardError, "hvac_load_kwh"):
+        with self.assertRaisesRegex(ValueError, "hvac_load_kwh"):
             self.data.set_readings(bad)
 
     def test_rejects_negative_energy(self):
         bad = self.readings.copy()
         bad.loc[0, "pv_energy_kwh"] = -1.0
 
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             self.data.set_readings(bad)
 
     def test_rejects_energy_that_is_not_a_number(self):
         bad = self.readings.copy()
         bad["base_load_kwh"] = ["broken", 0.5, 2.0]
 
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             self.data.set_readings(bad)
 
     def test_rejects_missing_and_infinite_energy(self):
@@ -111,25 +110,25 @@ class DashboardTests(unittest.TestCase):
                 bad = self.readings.copy()
                 bad.loc[0, "base_load_kwh"] = value
 
-                with self.assertRaises(DashboardError):
+                with self.assertRaises(ValueError):
                     self.data.set_readings(bad)
 
     def test_rejects_invalid_timestamps(self):
         bad = self.readings.copy()
         bad.loc[0, "date"] = "not a date"
 
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             self.data.set_readings(bad)
 
     def test_rejects_duplicate_timestamps(self):
         bad = self.readings.copy()
         bad.loc[1, "date"] = bad.loc[0, "date"]
 
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             self.data.set_readings(bad)
 
     def test_reports_a_day_without_readings(self):
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             self.data.get_day_readings("2030-01-01")
 
     def test_chart_prepares_household_and_solar_series(self):
@@ -149,10 +148,10 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(prepared["Solar generation"].tolist(), [0.4, 0.6])
 
     def test_chart_rejects_invalid_settings(self):
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             EnergyChart(title=" ")
 
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             EnergyChart(show_components="yes")
 
     def test_csv_export_contains_only_the_selected_day(self):
@@ -169,7 +168,7 @@ class DashboardTests(unittest.TestCase):
         self.assertAlmostEqual(restored["pv_energy_kwh"].iloc[0], 1.5)
 
     def test_dashboard_rejects_data_that_has_not_been_loaded(self):
-        with self.assertRaises(DashboardError):
+        with self.assertRaises(ValueError):
             EnergyDashboard(DashboardData(), EnergyChart())
 
 

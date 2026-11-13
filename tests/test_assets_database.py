@@ -4,15 +4,18 @@ from pathlib import Path
 
 import pandas as pd
 
+# Use the same data package setup as the Flask API.
+from database_reader import DatabaseManager
+
 from src.assets.battery import Battery
 from src.assets.building import Building
 from src.assets.energy_asset import AssetError
 from src.assets.smart_appliance import SmartAppliance
 from src.assets.solar_panel import SolarPanel
-from src.data_base.data_import import DataImporter, DataImportError
-from src.data_base.database_manager import DatabaseError, DatabaseManager
+from src.data_base.data_import import DataImporter
+from src.data_base.database_manager import DatabaseError
 from src.data_base.records import Alert, SimulationResult
-from src.data_base.validation import DataCleaner, DataValidationError
+from src.data_base.validation import DataCleaner
 
 
 class AssetTests(unittest.TestCase):
@@ -191,14 +194,14 @@ class DatabaseTests(unittest.TestCase):
     def test_importer_reports_missing_input_file(self):
         missing_path = Path(self.temp_dir.name) / "missing.csv"
 
-        with self.assertRaises(DataImportError):
+        with self.assertRaises(FileNotFoundError):
             DataImporter.read_table(str(missing_path))
 
     def test_importer_reports_unsupported_file_type(self):
         unsupported_path = Path(self.temp_dir.name) / "readings.txt"
         unsupported_path.write_text("not a supported table", encoding="utf-8")
 
-        with self.assertRaises(DataImportError):
+        with self.assertRaisesRegex(ValueError, "Unsupported file type"):
             DataImporter.read_table(str(unsupported_path))
 
     def test_importer_reports_missing_required_column(self):
@@ -206,7 +209,7 @@ class DatabaseTests(unittest.TestCase):
         csv_path.write_text("timestamp,value\n2024-01-01 00:00:00,1\n", encoding="utf-8")
         importer = DataImporter({"required": ["timestamp", "energy_kwh"]})
 
-        with self.assertRaises(DataValidationError):
+        with self.assertRaisesRegex(ValueError, "missing required columns"):
             importer.import_into(str(csv_path), self.db)
 
     def test_cleaner_drops_invalid_timestamps_and_duplicate_rows(self):

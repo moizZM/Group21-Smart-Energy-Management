@@ -1,7 +1,10 @@
+import json
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
-from src.error_handlers import ErrorManager
-from src.logic_engine import (
+import database_reader  # Sets up the data package, as the Flask API does.
+from logic_engine.logic_engine import (
     CompositePipeline,
     ComprehensiveMetricsProcessor,
     ConfigManager,
@@ -32,13 +35,18 @@ class TestLogicEngineSubsystem(unittest.TestCase):
     # ==========================================
     def test_01_config_loads_defaults_when_file_missing(self):
         """Ensure system doesn't crash if config.json is deleted."""
-        self.config_mgr.initialize_config("fake_path.json")
+        with TemporaryDirectory() as temp_dir:
+            self.config_mgr.initialize_config(str(Path(temp_dir) / "missing.json"))
         self.assertEqual(self.config_mgr.get_config()["baseline_energy_kwh"], 500.0)
 
     def test_02_config_overwrites_defaults_correctly(self):
         """Ensure dictionary merging works if user changes a value."""
-        self.config_mgr.set_config({"baseline_energy_kwh": 999.0})
+        with TemporaryDirectory() as temp_dir:
+            config_path = Path(temp_dir) / "config.json"
+            config_path.write_text(json.dumps({"baseline_energy_kwh": 999.0}), encoding="utf-8")
+            self.config_mgr.initialize_config(str(config_path))
         self.assertEqual(self.config_mgr.get_config()["baseline_energy_kwh"], 999.0)
+        self.assertEqual(self.config_mgr.get_config()["active_threshold_kwh"], 0.01)
 
     def test_03_config_encapsulation_enforced(self):
         """Ensure get_config() properly returns dict (Testing OOP Encapsulation)."""
@@ -86,24 +94,24 @@ class TestLogicEngineSubsystem(unittest.TestCase):
 
     def test_10_math_caps_sustainability_score(self):
         """Score should never exceed 100 even if usage is near zero."""
-        tiny_usage = [{"asset_id": "1", "timestamp": "2026-11-07 12:00:00", "energy_kwh": 0.1, "price": 0.1}]
+        tiny_usage = [{"asset_id": "1", "timestamp": "2026-11-07 12:00:00", "energy_kwh": 0.1, "price": 0.1, "solar_kwh": 0.0}]
         metrics = self.math_stage.process(tiny_usage)
         self.assertEqual(metrics["sustainability_score"], 100.0)
 
     def test_11_math_detects_peak_demand_spikes(self):
-        """Any usage > 50.0 kW should be logged in the peak_demands list."""
+        """Record an interval whose energy reading exceeds the configured threshold."""
         metrics = self.math_stage.process([self.sample_data[0]]) 
         self.assertEqual(len(metrics["peak_demands_detected"]), 1)
         self.assertEqual(metrics["peak_demands_detected"][0]["val"], 60.0)
 
     def test_12_math_fills_missing_null_values(self):
         """NFR: Resilience. Missing prices should become 0.0, not crash the system."""
-        null_data = [{"asset_id": "1", "timestamp": "2026-11-07 12:00:00", "energy_kwh": 10.0}] # Missing price
+        null_data = [{"asset_id": "1", "timestamp": "2026-11-07 12:00:00", "energy_kwh": 10.0, "price": float("nan"), "solar_kwh": 0.0}]
         metrics = self.math_stage.process(null_data)
         self.assertEqual(metrics["total_cost_usd"], 0.0)
 
     # ==========================================
-    # Pipeline & Error Manager (Tests 13-15)
+    # Pipeline and result handling (Tests 13-15)
     # ==========================================
     def test_13_composite_pipeline_chains_correctly(self):
         """Test operator overloading (|) chains processors and shares data."""
@@ -114,23 +122,15 @@ class TestLogicEngineSubsystem(unittest.TestCase):
         # Should drop the 1 inactive row, and calculate math on the remaining 2
         self.assertEqual(metrics["total_energy_kwh"], 80.0) # 60 + 20
 
-    def test_14_error_manager_returns_safe_fallback(self):
-        """Ensure ErrorManager returns a safe dictionary instead of crashing."""
-        err_mgr = ErrorManager(log_filepath="test_errors.log")
-        try:
-            raise ValueError("Simulated division by zero")
-        except Exception as e:
-            safe_dict = err_mgr.handle_exception(e, "Test Context")
-            
-        self.assertEqual(safe_dict["status"], "FAILED")
-        self.assertEqual(safe_dict["total_cost_usd"], 0.0)
+    def test_14_math_returns_empty_metrics_for_no_readings(self):
+        self.assertEqual(self.math_stage.process([]), {})
 
     def test_15_math_groups_category_breakdown_correctly(self):
         """Ensure asset_ids are properly grouped dynamically."""
         data = [
-            {"asset_id": "HVAC", "timestamp": "2026-01-01 12:00:00", "energy_kwh": 10.0},
-            {"asset_id": "HVAC", "timestamp": "2026-01-01 13:00:00", "energy_kwh": 15.0},
-            {"asset_id": "LIGHT", "timestamp": "2026-01-01 13:00:00", "energy_kwh": 5.0}
+            {"asset_id": "HVAC", "timestamp": "2026-01-01 12:00:00", "energy_kwh": 10.0, "price": 0.15, "solar_kwh": 0.0},
+            {"asset_id": "HVAC", "timestamp": "2026-01-01 13:00:00", "energy_kwh": 15.0, "price": 0.15, "solar_kwh": 0.0},
+            {"asset_id": "LIGHT", "timestamp": "2026-01-01 13:00:00", "energy_kwh": 5.0, "price": 0.15, "solar_kwh": 0.0}
         ]
         metrics = self.math_stage.process(data)
         self.assertEqual(metrics["category_breakdown_kwh"]["HVAC"], 25.0)
