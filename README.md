@@ -142,7 +142,16 @@ Run the dashboard tests from the repository root:
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
+Run unittest on linux
+```bash
+cd ~/Group21-Smart-Energy-Management
+```
 
-The dashboard test run passed 18 tests. These tests use sample readings and
-temporary files. They do not require a running Flask server or an application
-database.
+
+```bash
+git switch final-integration &&
+git pull --ff-only origin final-integration &&
+python -m pip install -r requirements.txt &&
+python -m unittest discover -s tests -p "test*.py" -v
+```
+
