@@ -1,6 +1,7 @@
 # AI-Powered Smart Energy Management System
 ## Group 21
-
+Final Integration Demo Video Link:
+https://drive.google.com/file/d/1x2aIpYyB3gOaZMk_gFYhsYiRv5Vb-7Zd/view?usp=drive_link
 A Python project that simulates household electricity use,
 solar generation, battery storage and smart appliances.
 
